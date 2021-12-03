@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FoodBox</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background: #e5e5e5;
+        font-family: "Roboto";
+      }
+
+      .topo {
+        background: #cf2b2b;
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 0 #bbbbbb;
+      }
+
+      .container {
+        display: flex;
+      }
+
+      .produto {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 5px;
+        box-shadow: 0 0 10px 0 #bbbbbb;
+        cursor: pointer;
+        border: 5px solid white;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Righteous";
+        font-weight: normal;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: normal;
+      }
+
+      h3 {
+        font-size: 30px;
+        margin-bottom: 15px;
+        font-family: "Righteous";
+        font-weight: normal;
+      }
+
+      h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+        font-size: 20px;
+      }
+
+      img {
+        width: 130px;
+        border-radius: 5px;
+        margin-left: 15px;
+      }
+
+      p {
+        margin: 15px 0 0 0;
+      }
+
+      .preco {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .botao {
+        background: #787775;
+        text-align: center;
+        padding: 15px;
+        margin-top: 30px;
+        margin-bottom: 100px;
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topo">
+      <h1>FoodBox</h1>
+      <h2>Monte seu box e receba em 15 minutos!</h2>
+    </div>
+
+    <h3>Primeiro, seu prato</h3>
+    <div class="container">
+      <div id="Frango" class="produto" onclick="escolherPrato('Frango')">
+        <img src="imagens/frango.jpg" />
+        <h4>Frango Yin-Yang</h4>
+        <p>Um pouco de batata, um pouco de salada</p>
+        <p id="precoFrango" class="preco">R$ 19,90</p>
+      </div>
+      <div id="Carne" class="produto" onclick="escolherPrato('Carne')">
+        <img src="imagens/carne.jpg" />
+        <h4>Carne e salada</h4>
+        <p>Partida ao meio pra parecer mais carne</p>
+        <p id="precoCarne" class="preco">R$ 24,90</p>
+      </div>
+    </div>
+
+    <h3>Agora, sua bebida</h3>
+    <div class="container">
+      <div id="Coca" class="produto" onclick="escolherBebida('Coca')">
+        <img src="imagens/coca.jpg" />
+        <h4>Coca-cola gelada</h4>
+        <p>Normal, zero ou stevia. Vai na sorte.</p>
+        <p id="precoCoca" class="preco">R$ 5,90</p>
+      </div>
+      <div id="Refresco" class="produto" onclick="escolherBebida('Refresco')">
+        <img src="imagens/refresco.jpg" />
+        <h4>Refresco</h4>
+        <p>Podia ser suco, mas leva água</p>
+        <p id="precoRefresco" class="preco">R$ 3,90</p>
+      </div>
+    </div>
+
+    <h3>Por fim, sua sobremesa</h3>
+    <div class="container">
+      <div id="Pudim" class="produto" onclick="escolherSobremesa('Pudim')">
+        <img src="imagens/pudim.jpg" />
+        <h4>Pudim</h4>
+        <p>Apenas um lindo e brilhante pudim</p>
+        <p id="precoPudim" class="preco">R$ 7,90</p>
+      </div>
+      <div id="Sorvete" class="produto" onclick="escolherSobremesa('Sorvete')">
+        <img src="imagens/sorvete.jpg" />
+        <h4>Sorvete bem gelado</h4>
+        <p>Três bolinhas como na foto</p>
+        <p id="precoSorvete" class="preco">R$ 6,90</p>
+      </div>
+    </div>
+
+    <div id="botaoFinalizar" class="botao" onclick="finalizarPedido()">
+      Finalizar pedido
+    </div>
+
+    <script>
+      let prato, bebida, sobremesa;
+      let pratoEscolhido = Boolean(false);
+      let bebidaEscolhida = Boolean(false);
+      let sobremesaEscolhida = Boolean(false);
+      let finalizar = Boolean(false);
+      let precoPrato, precoBebida, precoSobremesa, valorTotal;
+
+      function escolherPrato(pratoClicado) {
+        if (pratoClicado == "Frango") {
+          document.getElementById("Frango").style.borderColor = "green";
+          document.getElementById("Carne").style.borderColor = "white";
+          precoPrato = document.getElementById("precoFrango").textContent;
+        } else {
+          document.getElementById("Carne").style.borderColor = "green";
+          document.getElementById("Frango").style.borderColor = "white";
+          precoPrato = document.getElementById("precoCarne").textContent;
+        }
+
+        prato = pratoClicado;
+        if (pratoEscolhido == false) {
+          pratoEscolhido = true;
+        } else {
+          pratoEscolhido = false;
+        }
+        if (pratoEscolhido && bebidaEscolhida && sobremesaEscolhida) {
+          document.getElementById("botaoFinalizar").style.background =
+            "#0b940b";
+
+          finalizar = true;
+        }
+      }
+      function escolherBebida(bebidaClicada) {
+        if (bebidaClicada == "Coca") {
+          document.getElementById("Coca").style.borderColor = "green";
+          document.getElementById("Refresco").style.borderColor = "white";
+          precoBebida = document.getElementById("precoCoca").textContent;
+        } else {
+          document.getElementById("Refresco").style.borderColor = "green";
+          document.getElementById("Coca").style.borderColor = "white";
+          precoBebida = document.getElementById("precoRefresco").textContent;
+        }
+        bebida = bebidaClicada;
+        if (bebidaEscolhida == false) {
+          bebidaEscolhida = true;
+        } else {
+          bebidaEscolhida = false;
+        }
+
+        if (pratoEscolhido && bebidaEscolhida && sobremesaEscolhida) {
+          document.getElementById("botaoFinalizar").style.background =
+            "#0b940b";
+
+          finalizar = true;
+        }
+      }
+      function escolherSobremesa(sobremesaClicada) {
+        if (sobremesaClicada == "Pudim") {
+          document.getElementById("Pudim").style.borderColor = "green";
+          document.getElementById("Sorvete").style.borderColor = "white";
+          precoSobremesa = document.getElementById("precoPudim").textContent;
+        } else {
+          document.getElementById("Sorvete").style.borderColor = "green";
+          document.getElementById("Pudim").style.borderColor = "white";
+          precoSobremesa = document.getElementById("precoSorvete").textContent;
+        }
+        sobremesa = sobremesaClicada;
+        if (sobremesaEscolhida == false) {
+          sobremesaEscolhida = true;
+        } else {
+          sobremesaEscolhida = false;
+        }
+
+        if (pratoEscolhido && bebidaEscolhida && sobremesaEscolhida) {
+          document.getElementById("botaoFinalizar").style.background =
+            "#0b940b";
+
+          finalizar = true;
+        }
+      }
+
+      function finalizarPedido() {
+        let frase;
+
+        numero = "+5521999999999";
+
+        precoPrato = precoPrato.replace("R$ ", "");
+        precoPrato = precoPrato.replace(",", ".");
+        precoPrato = parseFloat(precoPrato);
+
+        precoBebida = precoBebida.replace("R$ ", "");
+        precoBebida = precoBebida.replace(",", ".");
+        precoBebida = parseFloat(precoBebida);
+
+        precoSobremesa = precoSobremesa.replace("R$ ", "");
+        precoSobremesa = precoSobremesa.replace(",", ".");
+        precoSobremesa = parseFloat(precoSobremesa);
+
+        valorTotal = precoPrato + precoBebida + precoSobremesa;
+        valorTotal = valorTotal.toFixed(2);
+        alert("Valor total: R$" + valorTotal.replace(".", ","));
+
+        frase =
+          "Olá, gostaria de pedir um Combo: " +
+          prato +
+          ", " +
+          bebida +
+          ", " +
+          sobremesa +
+          ".";
+
+        if (finalizar) {
+          window.open(
+            "https://api.whatsapp.com/send?phone=" + numero + "&text=" + frase
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
